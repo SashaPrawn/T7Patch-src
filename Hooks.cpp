@@ -200,6 +200,12 @@ namespace hooks {
 			constexpr auto mspreload_command = "mspreload";
 			std::vector<int> config_strings = { 3514, 3627 };
 
+			auto mode = Com_SessionMode_GetModeName();
+			if (mode && !Protection::I_stricmp(mode, "CP"))
+			{
+				return CL_GetConfigString(configStringIndex);
+			}
+
 			if (is_in_number_array(configStringIndex, config_strings))
 			{
 				if (auto config_string{ CL_GetConfigString(configStringIndex) }; is_equal(config_string, mspreload_command, std::strlen(mspreload_command), false))
