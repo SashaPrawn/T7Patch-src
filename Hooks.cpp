@@ -569,7 +569,7 @@ namespace hooks {
 			
 			bool result = LobbyMsgRW_PackageInt(lobbyMsg, key, val);
 
-			if ( result && !Protection::I_stricmp(key, "lobbytype") || !Protection::I_stricmp(key, "srclobbytype") || !Protection::I_stricmp(key, "destlobbytype"))
+			if (result && (!Protection::I_stricmp(key, "lobbytype") || !Protection::I_stricmp(key, "srclobbytype") || !Protection::I_stricmp(key, "destlobbytype")))
 			{
 				if (*val < 0 || *val > 1)
 				{
@@ -577,7 +577,7 @@ namespace hooks {
 					return false;
 				}
 			}
-			return true;
+			return result;
 		}
 
 		bool hkLobbyMsgRW_PackageUInt(LobbyMsg* lobbyMsg, const char* key, unsigned __int32* val)
