@@ -219,7 +219,7 @@ bool Protection::ReadP2PPacket(uintptr_t thisptr, void* pub_dest, unsigned int c
 
 	bool result = ((bool(__fastcall*)(uintptr_t, void*, unsigned int, unsigned int*, uint64_t*, int))GetOriginalSteamPtr(STEAMAPI_NETWORKING, STEAMAPI_NETWORKING_READP2PPACKET))(thisptr, pub_dest, cub_dest, cub_msg_size, steam_id_remote, n_channel);
 
-    if (result) {
+    if (result && cub_msg_size && *cub_msg_size > 5) {
 
         char* data = reinterpret_cast<char*>(pub_dest);
 
@@ -1016,7 +1016,7 @@ void Protection::install()
 
 void Protection::uninstall()
 {
-    *(__int64*)PTR_lobbymsgprints = *(__int64*)PTR_lobbymsgprints;
+    *(__int64*)PTR_lobbymsgprints = Protection::Old_lobbymsgprints;
     SetNetworkPassword(0);
     Iat_hook_::detour_iat_ptr("IsProcessorFeaturePresent", (void*)old_IsProcessorFeaturePresent);
 
