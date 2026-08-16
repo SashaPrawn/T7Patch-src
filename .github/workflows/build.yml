@@ -1,0 +1,24 @@
+name: Build Patch
+
+on: workflow_dispatch
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v3
+
+      - name: Build VCXPROJ
+        run: msbuild T7Patch.vcxproj /p:Configuration=Release /p:Platform=x64
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v7
+        with:
+          name: compiled-patch
+          path: x64/Release/*.dll
+          retention-days: 14
