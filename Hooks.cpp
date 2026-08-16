@@ -11,25 +11,32 @@ namespace hooks {
 
 		__int64 hkLiveInventory_GetItemQuantity(ControllerIndex_t controllerIndex, int itemId) {
 
-			if (SPOOF_UNLOCK_ALL == true) return 999;
+			if (SPOOF_UNLOCK_ALL == true) {
+
+				// Custom gobblegum inventory count
+				// Matches the max amount that can be displayed in the main menu
+				//
+				// Source: https://github.com/ate47/bo3-source/blob/main/gamedata/loot/zmlootitems.csv
+				//
+				if (itemId > 1000000000 && itemId < 1000000200) {
+					return 255;
+				} else {
+					return 1;
+				}
+			}
 
 			return LiveInventory_GetItemQuantity(controllerIndex, itemId);
 		}
 
 		bool hkLiveInventory_AreExtraSlotsPurchased(ControllerIndex_t controllerIndex) {
 		
-			if (SPOOF_UNLOCK_ALL == true) return 999;
-			
-				return true;
+			if (SPOOF_UNLOCK_ALL == true) return true;
 
 			return LiveInventory_AreExtraSlotsPurchased(controllerIndex);
 		}
 
 		const char* hkInfo_ValueForKey(char* a1, __int64 a2)
 		{
-			// log a2
-
-
 			return Info_ValueForKey(a1, a2);
 		}
 
