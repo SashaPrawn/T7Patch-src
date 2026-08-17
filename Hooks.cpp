@@ -40,9 +40,27 @@ namespace hooks {
 
 		bool hkLiveEntitlements_IsEntitlementActiveForController(ControllerIndex_t controllerIndex, int incentiveId) {
 
-			if (SPOOF_UNLOCK_ALL == true) return 999;
-				return true; 
+			// Skip broken incentiveIds
+			// 
+			// 29: Marked as "unavailable" in files
+			// 30: Duplicate CWL pack w/o calling card
+			// 34: Duplicate St. Patrick's calling card
+			//
+			// Source: https://github.com/ate47/bo3-source/blob/main/gamedata/store/common/incentives.csv
+			//
+			if (incentiveId == 29 || incentiveId == 30 || incentiveId == 34) {
+				return false;
+			}
 
+			if (SPOOF_UNLOCK_ALL == true) {
+
+				if (SPOOF_SKIP_CWL == true && 
+					(incentiveId == 21 || incentiveId == 22 || incentiveId == 23)) {
+						return false;
+				}
+
+				return true;
+			}
 
 			return LiveEntitlements_IsEntitlementActiveForController(controllerIndex, incentiveId);
 		}
