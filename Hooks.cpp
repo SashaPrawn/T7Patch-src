@@ -79,10 +79,26 @@ namespace hooks {
 			return true;
 		}
 
+		// Source: /gamedata/store/common/incentives.csv
 		bool hkLiveEntitlements_IsEntitlementActiveForController(ControllerIndex_t controllerIndex, int incentiveId) {
 
 			#if SPOOF_UNLOCK
+
+				// Invalid / Duplicates
+				if (incentiveId == 29 || incentiveId == 30 || incentiveId == 34) {
+					return false;
+				}
+
+				#if SPOOF_SKIP_CWL
+
+					if (incentiveId == 21 || incentiveId == 22 || incentiveId == 23) {
+						return false;
+					}
+
+				#endif
+
 				return true;
+
 			#endif
 
 			return LiveEntitlements_IsEntitlementActiveForController(controllerIndex, incentiveId);

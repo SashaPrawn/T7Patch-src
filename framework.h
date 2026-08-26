@@ -143,3 +143,4 @@ inline std::vector<std::string> legit_packets = {
 #define SPOOF_OWNERSHIP false
 #define SPOOF_RANKED false
 #define SPOOF_UNLOCK false
+#define SPOOF_SKIP_CWL false
