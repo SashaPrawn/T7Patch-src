@@ -138,10 +138,10 @@ inline std::vector<std::string> legit_packets = {
 
 #define CRASH_LOG_NAME "crashes.log"
 #define PATCH_CONFIG_LOCATION "t7patch.conf"
-#define ZBR_WINDOW_TEXT "Call of Duty: Black Ops III (community patch by serious)"
-#define ZBR_VERSION_FULL "Patch 3.04 - by serious <3"
+#define ZBR_WINDOW_TEXT "Call of Duty: Black Ops III"
+#define ZBR_VERSION_FULL "T7Patch - Custom"
 #define SPOOF_OWNERSHIP false
-#define SPOOF_RANKED false
-#define SPOOF_UNLOCK false
-#define SPOOF_SKIP_CWL false
-#define SPOOF_GUM_COUNT 255
+#define SPOOF_RANKED true
+#define SPOOF_UNLOCK true
+#define SPOOF_SKIP_CWL true
+#define SPOOF_GUM_COUNT 99
