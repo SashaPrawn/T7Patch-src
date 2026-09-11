@@ -49,16 +49,15 @@ namespace hooks {
 			return LiveEntitlements_IsEntitlementActiveForController(controllerIndex, incentiveId);
 		}
 
-
 		bool hkUserHasLicenseForApp(__int64 mapInfo, __int64* userObj) {
 			#if SPOOF_UNLOCK_ALL
-
-				*((BYTE*)userObj + 13) = 1;
-				*((BYTE*)userObj + 12) |= 0;
-				*((DWORD*)userObj + 4) |= 8u;
-
+				if (userObj)
+				{
+					*((BYTE*)userObj + 13) = 1;
+					*((BYTE*)userObj + 12) |= 0;
+					*((DWORD*)userObj + 4) |= 8u;
+				}
 				return true;
-				
 			#endif
 
 			return UserHasLicenseForApp(mapInfo, userObj);
