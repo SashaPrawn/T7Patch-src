@@ -35,9 +35,15 @@ namespace hooks {
 		const char* hkInfo_ValueForKey(char* a1, __int64 a2) {
 			return Info_ValueForKey(a1, a2);
 		}
-
+		
+		// Caused uninstalled content to show as available.
 		bool hkLiveInventory_IsValid(ControllerIndex_t controllerIndex) {
-			return true;
+
+			#if SPOOF_UNLOCK_ALL
+				return true;
+			#endif
+
+			return LiveInventory_IsValid(controllerIndex);
 		}
 
 		// Source: /gamedata/store/common/incentives.csv
@@ -590,7 +596,8 @@ namespace hooks {
 
 			if (result && (!Protection::I_stricmp(key, "lobbytype") || !Protection::I_stricmp(key, "srclobbytype") || !Protection::I_stricmp(key, "destlobbytype")))
 			{
-				if (*val < 0 || *val > 1)
+
+				if (*val < LOBBY_TYPE_FIRST || *val > LOBBY_TYPE_LAST)
 				{
 					//XLOG("DROP LOBBYTYPE");
 					return false;
@@ -604,7 +611,7 @@ namespace hooks {
 			bool result = LobbyMsgRW_PackageUInt(lobbyMsg, key, val);
 			if (result && (!Protection::I_stricmp(key, "lobbytype") || !Protection::I_stricmp(key, "srclobbytype") || !Protection::I_stricmp(key, "destlobbytype")))
 			{
-				if (*val > 1)
+				if (*val > static_cast<unsigned __int32>(LOBBY_TYPE_LAST))
 				{
 					return false;
 				}
